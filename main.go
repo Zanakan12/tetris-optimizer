@@ -8,7 +8,7 @@ import (
 
 func main() {
 	if len(os.Args) != 2 {
-		fmt.Println("Usage: go run . <path_file>")
+		fmt.Println("Usage: go run . <path_file.txt>")
 		os.Exit(1)
 	}
 

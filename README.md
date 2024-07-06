@@ -11,7 +11,45 @@ The core algorithm behind Tetromino Solver uses a backtracking approach, enhance
 - **Bounding Box Check**: Ensures that a tetromino does not exceed the grid boundaries before attempting placement.
 - **Early Exit**: Stops further checks as soon as an overlap is detected, enhancing performance by reducing unnecessary computations.
 - **Heuristics**: Implements strategies like least-filling heuristic and most constraining piece placement to guide the search process, reducing the search space and focusing on more promising paths early in the computation.
-
+```sh
++---------------------+
+|  ParseTetrominos    |
++----------+----------+
+           |
+           |  [Entrée: lines[]]
+           v
++----------+----------+
+|  Initialisation de  |
+|  tetrominos[]       |
++----------+----------+
+           |
+           |  [Boucle principale sur lines]
+           v
++----------+----------+
+|  Lecture des lignes |
+|  pour chaque bloc   |
++----------+----------+
+           |
+           |  [Interprétation des caractères]
+           v
++----------+----------+
+|  Construction des   |
+|  positions[]        |
++----------+----------+
+           |
+           |  [Validation]
+           v
++-----------+-----------+
+|  Ajout au tetrominos[]|
+|  si valide            |
++-----------+-----------+
+           |
+           v
++----------+-----------+
+|  Retour de tetrominos|
+|  et gestion d'erreurs|
++----------------------+
+```
 ## Installation
 
 ### Prerequisites
