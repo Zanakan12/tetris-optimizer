@@ -81,10 +81,11 @@ To run Tetromino Solver, you need to provide an input file containing the grid s
 
 ```
 4
-####
-   #
-   
-####
+0  ....    <- ligne 0: pas de blocs
+1  .##.    <- ligne 1: blocs en colonnes 1 et 2
+2  .##.    <- ligne 2: blocs en colonnes 1 et 2
+3  ....    <- ligne 3: pas de blocs
+
 
 ```
 

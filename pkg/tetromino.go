@@ -29,6 +29,7 @@ func ParseTetrominos(lines []string) ([]Tetromino, error) {
 			return nil, fmt.Errorf("invalid tetromino at index %d", i)
 		}
 		tetrominos = append(tetrominos, Tetromino{positions: positions})
+		fmt.Println("position:",i,tetrominos)
 	}
 	return tetrominos, nil
 }
