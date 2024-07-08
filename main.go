@@ -2,34 +2,58 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"os"
-	"tetris-optimizer/pkg"
+	"time"
+
+	"tetris-optimizer/lib"
 )
 
 func main() {
-	if len(os.Args) != 2 {
-		fmt.Println("Usage: go run . <path_file.txt>")
-		os.Exit(1)
+	if len(os.Args) < 2 {
+		fmt.Println("Usage: go run main.go <input_file>")
+		return
 	}
 
-	lines, err := pkg.ReadInput(os.Args[1])
+	arg := os.Args[1]
+	Tetrominos, err := lib.ReadInputFile(arg)
 	if err != nil {
-		fmt.Println("Failed to read input:", err)
-		os.Exit(1)
+		errMsg := err.Error()
+		fmt.Println(errMsg)
+		return
 	}
 
-	tetrominos, err := pkg.ParseTetrominos(lines)
-	if err != nil {
+	if !lib.IsTetrominoValid(Tetrominos) || len(Tetrominos) == 0 {
 		fmt.Println("ERROR")
-		os.Exit(0)
+		return
 	}
 
-	gridSize := 10 // Define grid size based on input or requirements
-	grid := pkg.CreateGrid(gridSize)
+	// Calculate how big board should be using this formula: ceil(sqrt(4 * number_of_tetrominos))
+	boardSize := int(math.Ceil(math.Sqrt(float64(len(Tetrominos) * 4))))
 
-	if grid.CanPlace(0, 0, &tetrominos[0]) {
-		grid.Place(0, 0, &tetrominos[0], 'A')
-		grid.Print()
-		grid.Remove(0, 0, &tetrominos[0])
+	board := make([][]string, boardSize)
+	for i := range board {
+		board[i] = make([]string, boardSize)
+		for j := range board[i] {
+			board[i][j] = "."
+		}
+	}
+
+	compressedTetrominos := lib.CutUnusedLines(Tetrominos)
+
+	fmt.Println("\n🔍 Started solving...")
+	timeStarted := time.Now()
+
+	resolvedBoard := lib.Resolve(compressedTetrominos, board)
+	fmt.Println("\n⌛ Time took to solve: ", time.Since(timeStarted))
+
+	fmt.Println("\n📝 Result:")
+	fmt.Println()
+
+	for _, row := range resolvedBoard {
+		for _, char := range row {
+			fmt.Print(string(char))
+		}
+		fmt.Println()
 	}
 }
