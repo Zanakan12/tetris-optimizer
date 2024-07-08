@@ -1,4 +1,4 @@
-package lib
+package pkg
 
 // IsTetrominoValid checks if the given tetrominos are valid according to the game rules.
 func IsTetrominoValid(tetrominos [][]string) bool {

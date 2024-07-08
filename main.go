@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"math"
 	"os"
-	"time"
-
 	"tetris-optimizer/pkg"
 )
 
@@ -15,44 +13,62 @@ func main() {
 		return
 	}
 
-	arg := os.Args[1]
-	Tetrominos, err := lib.ReadInputFile(arg)
+	inputFile := os.Args[1]
+	tetrominos, err := pkg.ReadInputFile(inputFile)
 	if err != nil {
-		errMsg := err.Error()
-		fmt.Println(errMsg)
+		fmt.Printf("Error reading input file: %v\n", err)
 		return
 	}
 
-	if !lib.IsTetrominoValid(Tetrominos) || len(Tetrominos) == 0 {
+	if !isValidTetrominos(tetrominos) {
 		fmt.Println("ERROR")
 		return
 	}
 
-	// Calculate how big board should be using this formula: ceil(sqrt(4 * number_of_tetrominos))
-	boardSize := int(math.Ceil(math.Sqrt(float64(len(Tetrominos) * 4))))
+	boardSize := calculateBoardSize(len(tetrominos))
+	board := createEmptyBoard(boardSize)
 
-	board := make([][]string, boardSize)
+	compressedTetrominos := pkg.CutUnusedLines(tetrominos)
+	resolvedBoard := pkg.Resolve(compressedTetrominos, board)
+
+	printBoard(resolvedBoard)
+}
+
+func isValidTetrominos(tetrominos [][]string) bool {
+	return pkg.IsTetrominoValid(tetrominos) && len(tetrominos) > 0
+}
+
+func calculateBoardSize(numTetrominos int) int {
+	return int(math.Ceil(math.Sqrt(float64(numTetrominos * 4))))
+}
+
+func createEmptyBoard(size int) [][]string {
+	board := make([][]string, size)
 	for i := range board {
-		board[i] = make([]string, boardSize)
+		board[i] = make([]string, size)
 		for j := range board[i] {
 			board[i][j] = "."
 		}
 	}
+	return board
+}
 
-	compressedTetrominos := lib.CutUnusedLines(Tetrominos)
+func printBoard(board [][]string) {
+	symbols := map[string]string{
+		"A": "🟦",
+		"B": "🟥",
+		"C": "🟩",
+		"D": "🟧",
+		"E": "🟪",
+		"F": "🟨",
+		"G": "🟫",
+		"H": "⬜",
+		".": "⬛",
+	}
 
-	fmt.Println("\n🔍 Started solving...")
-	timeStarted := time.Now()
-
-	resolvedBoard := lib.Resolve(compressedTetrominos, board)
-	fmt.Println("\n⌛ Time took to solve: ", time.Since(timeStarted))
-
-	fmt.Println("\n📝 Result:")
-	fmt.Println()
-
-	for _, row := range resolvedBoard {
+	for _, row := range board {
 		for _, char := range row {
-			fmt.Print(string(char))
+			fmt.Print(symbols[char])
 		}
 		fmt.Println()
 	}

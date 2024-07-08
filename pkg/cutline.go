@@ -1,4 +1,4 @@
-package lib
+package pkg
 
 // CutUnusedLines removes rows and columns that do not contain any '#' from each tetromino.
 func CutUnusedLines(tetrominos [][]string) [][]string {

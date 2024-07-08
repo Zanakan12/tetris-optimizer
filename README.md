@@ -22,10 +22,11 @@ tetris-optimizer/
 
 ## Fonctionnement Général
 
-1. **Lecture de Fichier** : Le programme lit le fichier d'entrée spécifié (`veryhard.txt`).
+1. **Lecture de Fichier** : Le programme lit le fichier d'entrée spécifié (`tetrominos.txt`).
+
 2. **Validation** : Les tetrominos dans le fichier sont validés pour s'assurer qu'ils sont corrects.
 3. **Résolution** : Le programme tente de résoudre la configuration en utilisant des algorithmes d'optimisation.
-4. **Affichage des Résultats** : Les résultats sont affichés à l'utilisateur.
+4. **Affichage des Résultats** : Les résultats sont affichés à l'utilisateur sous form de block de couleur.
 
 ## Schéma de Flux de Travail
 
@@ -42,7 +43,7 @@ Pour exécuter le programme, utilisez les commandes suivantes :
 go mod tidy
 go run main.go
 ```
-Assurez-vous que le fichier d'entrée (`veryhard.txt`) est présent dans le répertoire racine du projet.
+Assurez-vous que le fichier d'entrée (`tetrominos.txt`) est présent dans le répertoire racine du projet.
 
 ## Auteurs
 

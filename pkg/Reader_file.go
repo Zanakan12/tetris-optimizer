@@ -1,4 +1,4 @@
-package lib
+package pkg
 
 import (
 	"bufio"
@@ -14,27 +14,28 @@ func ReadInputFile(path string) ([][]string, error) {
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
+	var tetrominos [][]string
+	var currentTetromino []string
 
-	Tetromino := [][]string{}
-	tetrominoLines := []string{}
 	for scanner.Scan() {
-		currentLine := scanner.Text()
-		if len(currentLine) == 4 {
-			tetrominoLines = append(tetrominoLines, currentLine)
-		} else if currentLine != "" && len(currentLine) != 4 {
+		line := scanner.Text()
+
+		if len(line) != 4 && line != "" {
 			return nil, fmt.Errorf("ERROR")
 		}
 
-		if currentLine == "" {
-			Tetromino = append(Tetromino, tetrominoLines)
-			tetrominoLines = []string{}
-		} else if currentLine != "" && len(tetrominoLines) > 4 {
-			return nil, fmt.Errorf("ERROR")
+		if line == "" {
+			if len(currentTetromino) > 0 {
+				tetrominos = append(tetrominos, currentTetromino)
+				currentTetromino = nil
+			}
+		} else {
+			currentTetromino = append(currentTetromino, line)
 		}
 	}
-	if len(tetrominoLines) > 0 {
-		Tetromino = append(Tetromino, tetrominoLines)
-	}
 
-	return Tetromino, nil
+	if len(currentTetromino) > 0 {
+		tetrominos = append(tetrominos, currentTetromino)
+	}
+	return tetrominos, nil
 }
