@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	"tetris-optimizer/lib"
+	"tetris-optimizer/pkg"
 )
 
 func main() {
