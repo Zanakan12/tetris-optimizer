@@ -16,26 +16,21 @@ func main() {
 	inputFile := os.Args[1]
 	tetrominos, err := pkg.ReadInputFile(inputFile)
 	if err != nil {
-		fmt.Printf("Error reading input file: %v\n", err)
-		return
-	}
-
-	if !isValidTetrominos(tetrominos) {
 		fmt.Println("ERROR")
 		return
 	}
 
-	boardSize := calculateBoardSize(len(tetrominos))
-	board := createEmptyBoard(boardSize)
+	if !pkg.IsTetrominoValid(tetrominos) {
+		fmt.Println("ERROR")
+		return
+	}
 
+	
+	board := createEmptyBoard(calculateBoardSize(len(tetrominos)))
 	compressedTetrominos := pkg.CutUnusedLines(tetrominos)
 	resolvedBoard := pkg.Resolve(compressedTetrominos, board)
-
+	fmt.Println(len(board),board,compressedTetrominos)
 	printBoard(resolvedBoard)
-}
-
-func isValidTetrominos(tetrominos [][]string) bool {
-	return pkg.IsTetrominoValid(tetrominos) && len(tetrominos) > 0
 }
 
 func calculateBoardSize(numTetrominos int) int {
