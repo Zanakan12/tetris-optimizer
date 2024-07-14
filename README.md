@@ -18,23 +18,7 @@ tetris-optimizer/
 └── veryhard.txt              # Exemple de fichier d'entrée
 ```
 
-## Flowchart Description## Architecture du Projet
-Le projet est structuré de la manière suivante :
-
-```
-tetris-optimizer/
-│
-├── main.go                   # Point d'entrée du programme
-├── go.mod                    # Fichier de configuration du module Go
-├── README.md                 # Description et instructions du projet
-├── pkg/
-│   ├── cutline.go            # Gestion des lignes coupées
-│   ├── Verify.go             # Validation des tetrominos
-│   ├── Reader_file.go        # Lecture des fichiers d'entrée
-│   └── tetromino_resolver.go # Résolution des configurations de tetrominos
-└── veryhard.txt              # Exemple de fichier d'entrée
-```
-
+## Flowchart Description
 
 Below is a flowchart that visually represents the steps involved in the Tetromino placement process:
 
