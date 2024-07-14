@@ -38,7 +38,7 @@ tetris-optimizer/
 
 Below is a flowchart that visually represents the steps involved in the Tetromino placement process:
 
-```mermaid
+```plaintext
 +-------------------+     +------------------------+     +------------------------+
 | Start Program     |     | Read Input File        |     | Validate Tetrominos    |
 | (Check arguments) | --> | (Load Tetrominos)      | --> | (Check shapes and size)|
