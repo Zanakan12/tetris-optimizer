@@ -120,11 +120,10 @@ The flowchart illustrates the logical steps involved in the Tetromino placement 
 To run the program, use the following commands:
 
 ```bash
-go mod tidy
 go run main.go
 ```
 
-Ensure that the input file (tetrominos.txt) is present in the root directory of the project.
+Ensure that the input file (example.txt) is present in the root directory of the project.
 
 ## Authors
 DJIHADI RAFTANDJANI

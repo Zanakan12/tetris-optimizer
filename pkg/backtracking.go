@@ -52,8 +52,8 @@ func placeTetromino(tetromino []string, board [][]string, y int, x int, tetromin
 	return board
 }
 
-// Main function to resolve the placement of tetrominos on the board.
-func Resolve(tetrominos [][]string, board [][]string) [][]string {
+// Main function to Solver the placement of tetrominos on the board.
+func Solver(tetrominos [][]string, board [][]string) [][]string {
 	boardSaves := []BoardSave{} // To save the state of the board at each step
 
 	for i := 0; i < len(tetrominos); i++ {

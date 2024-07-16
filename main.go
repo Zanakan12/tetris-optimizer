@@ -2,72 +2,25 @@ package main
 
 import (
 	"fmt"
-	"math"
 	"os"
 	"tetris-optimizer/pkg"
 )
 
 func main() {
 	if len(os.Args) < 2 {
-		fmt.Println("Usage: go run main.go <input_file>")
+		fmt.Println("Usage: go run . <examples/examples.txt>")
 		return
 	}
 
 	inputFile := os.Args[1]
-	tetrominos, err := pkg.ReadInputFile(inputFile)
+	tetrominos, err := pkg.Reader(inputFile)
 	if err != nil {
-		fmt.Println("ERROR")
+		fmt.Println("ERROR reading file:", err)
 		return
-	}
-
-	if !pkg.IsTetrominoValid(tetrominos) {
-		fmt.Println("ERROR")
+	}else if !pkg.Validator(tetrominos) {
+		fmt.Println("ERROR: Invalid tetrominos")
 		return
-	}
-
-	
-	board := createEmptyBoard(calculateBoardSize(len(tetrominos)))
-	compressedTetrominos := pkg.CutUnusedLines(tetrominos)
-	resolvedBoard := pkg.Resolve(compressedTetrominos, board)
-	printBoard(resolvedBoard)
-}
-
-func calculateBoardSize(numTetrominos int) int {
-	return int(math.Ceil(math.Sqrt(float64(numTetrominos * 4))))
-}
-
-func createEmptyBoard(size int) [][]string {
-	board := make([][]string, size)
-	for i := range board {
-		board[i] = make([]string, size)
-		for j := range board[i] {
-			board[i][j] = "."
-		}
-	}
-	return board
-}
-
-func printBoard(board [][]string) {
-	symbols := map[string]string{
-		"A": "🟦",
-		"B": "🟥",
-		"C": "🟩",
-		"D": "🟧",
-		"E": "🟪",
-		"F": "🟨",
-		"G": "🟫",
-		"H": "⬜",
-		"I": "❎",
-		"J": "🆗",
-		"K": "✅",
-		"L": "🃏",
-		".": "⬛",
-	}
-
-	for _, row := range board {
-		for _, char := range row {
-			fmt.Print(symbols[char])
-		}
-		fmt.Println()
+	}else{
+		pkg.Main(tetrominos)
 	}
 }

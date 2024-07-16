@@ -1,7 +1,7 @@
 package pkg
 
-// IsTetrominoValid checks if the given tetrominos are valid according to the game rules.
-func IsTetrominoValid(tetrominos [][]string) bool {
+// Validation checks if the given tetrominos are valid according to the game rules.
+func Validator(tetrominos [][]string) bool {
 	for _, tetromino := range tetrominos {
 		totalConnections := 0
 		totalHashtags := 0
