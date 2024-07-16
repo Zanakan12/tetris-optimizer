@@ -29,7 +29,6 @@ func main() {
 	board := createEmptyBoard(calculateBoardSize(len(tetrominos)))
 	compressedTetrominos := pkg.CutUnusedLines(tetrominos)
 	resolvedBoard := pkg.Resolve(compressedTetrominos, board)
-	fmt.Println(len(board),board,compressedTetrominos)
 	printBoard(resolvedBoard)
 }
 
@@ -58,6 +57,10 @@ func printBoard(board [][]string) {
 		"F": "🟨",
 		"G": "🟫",
 		"H": "⬜",
+		"I": "❎",
+		"J": "🆗",
+		"K": "✅",
+		"L": "🃏",
 		".": "⬛",
 	}
 
