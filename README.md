@@ -5,18 +5,27 @@ This README outlines the process flow of the Tetromino placement program. It det
 The project is structured as follows:
 
 ```
-tetris-optimizer/
-│
-├── main.go                   # Program entry point
-├── go.mod                    # Go module configuration file
-├── README.md                 # Project description and instructions
-├── pkg/
-│   ├── cutline.go            # Management of cut lines
-│   ├── Verify.go             # Validation of tetrominos
-│   ├── Reader_file.go        # Reading input files
-│   └── tetromino_resolver.go # Resolution of tetromino configurations
-└── veryhard.txt              # Example input file
-
+├── README.md
+├── examples
+│   ├── badexample00.txt
+│   ├── badexample01.txt
+│   ├── badexample02.txt
+│   ├── badexample03.txt
+│   ├── badexample04.txt
+│   ├── badformat.txt
+│   ├── example00.txt
+│   ├── example01.txt
+│   ├── example02.txt
+│   ├── example03.txt
+│   └── hardexample.txt
+├── go.mod
+├── main.go
+├── pkg
+│   ├── Reader_file.go
+│   ├── Valid.go
+│   ├── cutline.go
+│   └── tetromino_resolver.go.go
+└── test.sh
 ```
 
 ## Flowchart Description
