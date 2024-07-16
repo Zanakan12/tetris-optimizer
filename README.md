@@ -22,10 +22,12 @@ The project is structured as follows:
 ├── main.go
 ├── pkg
 │   ├── Reader_file.go
-│   ├── Valid.go
-│   ├── cutline.go
-│   └── tetromino_resolver.go.go
-└── test.sh
+│   ├── Validator.go
+│   ├── backtracking.go
+│   ├── callall.go
+│   └── remover.go
+├── test.sh
+└── tetrominos.txt
 ```
 
 ## Flowchart Description
