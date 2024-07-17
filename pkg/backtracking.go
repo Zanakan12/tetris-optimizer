@@ -1,17 +1,18 @@
 package pkg
 
+
 type Position struct {
 	X int
 	Y int
 }
 
 type BoardSave struct {
-	board    [][]string
+	board     [][]string
 	positions [][]Position
 }
 
 // Creates a deep copy of the board.
-func copyBoard(board [][]string) [][]string {
+func CopyBoard(board [][]string) [][]string {
 	newBoard := make([][]string, len(board))
 	for i, row := range board {
 		newRow := make([]string, len(row))
@@ -22,11 +23,11 @@ func copyBoard(board [][]string) [][]string {
 }
 
 // Checks if the tetromino can be placed on the board at the given position.
-func canPlaceTetromino(tetromino []string, board [][]string, y int, x int) bool {
-	for dy, row := range tetromino {
-		for dx, char := range row {
+func CanPlaceTetromino(tetromino []string, board [][]string, y int, x int) bool {
+	for i, row := range tetromino {
+		for j, char := range row {
 			if char == '#' {
-				if y+dy >= len(board) || x+dx >= len(board[0]) || board[y+dy][x+dx] != "." {
+				if y+i >= len(board) || x+j >= len(board[0]) || board[y+i][x+j] != "." {
 					return false
 				}
 			}
@@ -36,15 +37,15 @@ func canPlaceTetromino(tetromino []string, board [][]string, y int, x int) bool 
 }
 
 // Places the tetromino on the board at the given position.
-func placeTetromino(tetromino []string, board [][]string, y int, x int, tetrominoIndex int) [][]string {
-	for dy, row := range tetromino {
-		for dx, char := range row {
+func PlaceTetromino(tetromino []string, board [][]string, y int, x int, tetrominoIndex int) [][]string {
+	for i, row := range tetromino {
+		for j, char := range row {
 			if char == '#' {
 				startOfAlphabet := 65 + tetrominoIndex
 				if startOfAlphabet > 90 {
-					board[y+dy][x+dx] = "X"
+					board[y+i][x+j] = "X"
 				} else {
-					board[y+dy][x+dx] = string(rune(startOfAlphabet))
+					board[y+i][x+j] = string(rune(startOfAlphabet))
 				}
 			}
 		}
@@ -60,13 +61,13 @@ func Solver(tetrominos [][]string, board [][]string) [][]string {
 		hasBeenPlaced := false
 		isAtLastPosition := true
 		hasDuplicatePosition := false
-		canPlaceTetrominoFlag := false
+		CanPlaceTetrominoFlag := false
 		tetrominoPositions := [][]Position{}
 
 		for x := 0; x < len(board[0]) && !hasBeenPlaced; x++ {
 			for y := 0; y < len(board) && !hasBeenPlaced; y++ {
-				if canPlaceTetromino(tetrominos[i], board, y, x) {
-					canPlaceTetrominoFlag = true
+				if CanPlaceTetromino(tetrominos[i], board, y, x) {
+					CanPlaceTetrominoFlag = true
 					hasDuplicate := false
 
 					// Check for duplicate positions
@@ -94,7 +95,7 @@ func Solver(tetrominos [][]string, board [][]string) [][]string {
 
 					hasBeenPlaced = true
 
-					localBoard := copyBoard(board)
+					localBoard := CopyBoard(board)
 					tetrominoPositions[len(tetrominoPositions)-1] = append(tetrominoPositions[len(tetrominoPositions)-1], Position{x, y})
 
 					if !hasDuplicatePosition {
@@ -102,12 +103,12 @@ func Solver(tetrominos [][]string, board [][]string) [][]string {
 						boardSaves = append(boardSaves, BoardSave{localBoard, tetrominoPositions})
 					}
 
-					board = placeTetromino(tetrominos[i], board, y, x, i)
+					board = PlaceTetromino(tetrominos[i], board, y, x, i)
 				}
 			}
 		}
 
-		if !canPlaceTetrominoFlag {
+		if !CanPlaceTetrominoFlag {
 			isAtLastPosition = false
 		}
 
@@ -133,9 +134,9 @@ func Solver(tetrominos [][]string, board [][]string) [][]string {
 
 				if isAtLastPosition {
 					boardSaves = boardSaves[:len(boardSaves)-1]
-					board = copyBoard(boardSaves[len(boardSaves)-1].board)
+					board = CopyBoard(boardSaves[len(boardSaves)-1].board)
 				} else {
-					board = copyBoard(boardSaves[len(boardSaves)-1].board)
+					board = CopyBoard(boardSaves[len(boardSaves)-1].board)
 				}
 			}
 		}
